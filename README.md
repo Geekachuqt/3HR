@@ -5,7 +5,7 @@
 
 ### REPEAT3HR
 
-REPEAT3HR is a creative, digital-style mono delay that is designed for time manipulation. It uses volume automation to smoothen out clicks introduced by changes in the delay time.
+REPEAT3HR is a creative, digital-style mono delay that is designed for time manipulation. It uses volume interpolation to smoothen out clicks introduced by changes in the delay time.
 
 Every parameter is fully CV-controllable, and works by adding the incoming signal ontop of the knob value. The Crush parameter is the exception to the rule, and here it subtracts from the knob value instead, mirroring the normal usage of the knob.
 
