@@ -1,0 +1,35 @@
+{
+  "slug": "3HR",
+  "name": "3HR",
+  "version": "2.0.0",
+  "license": "Freeware",
+  "brand": "3HR",
+  "author": "Robin Hammar",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "Repeat3hr",
+      "name": "Repeat3hr",
+      "description": "Creative mono delay with a decimated feedback line.",
+      "tags": [
+        "delay",
+        "distortion"
+      ]
+    },
+    {
+      "slug": "Xtenuat3hr",
+      "name": "Xtenuat3hr",
+      "description": "CV-controlled crossfader and attenuverter.",
+      "tags": [
+        "attenuator",
+        "utility"
+      ]
+    }
+  ]
+}
