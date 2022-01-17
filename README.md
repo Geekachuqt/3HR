@@ -11,8 +11,8 @@ Every parameter is fully CV-controllable, and works by adding the incoming signa
 
 ![Xtenuvert3hr](https://user-images.githubusercontent.com/24296465/149802864-7715eb95-3f94-409a-969e-16fc0c9c960e.png)
 
-### XTENUVERT3HR
+### XTENUAT3HR
 
-XTENUVERT3HR is a CV tool designed to crossfade two CV signals, and attenuvert them. This can create some really interesting and fun patterns from just two base signals.
+XTENUAT3HR is a CV tool designed to crossfade two CV signals, and attenuvert them. This can create some really interesting and fun patterns from just two base signals.
 
 The Attenuverter doesn't just apply a -1 multiplier to the signal, but rather fully inverts it - turning +10V to 0 and vice versa.
