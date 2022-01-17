@@ -9,6 +9,8 @@ REPEAT3HR is a creative, digital-style mono delay that is designed for time mani
 
 Every parameter is fully CV-controllable, and works by adding the incoming signal ontop of the knob value. The Crush parameter is the exception to the rule, and here it subtracts from the knob value instead, mirroring the normal usage of the knob.
 
+Finally, it also outputs a trig pulse every time the delayline resets. This allows you to, per example, trigger envelopes in sync with the output of the module, furthering the fun you can have with manipulating the delay time.
+
 ![Xtenuvert3hr](https://user-images.githubusercontent.com/24296465/149802864-7715eb95-3f94-409a-969e-16fc0c9c960e.png)
 
 ### XTENUAT3HR
