@@ -26,15 +26,15 @@ struct Xtenuat3hr : Module {
 
 	Xtenuat3hr() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
-		configParam(CROSS_PARAM, 0.f, 1.f, 0.5f, "");
-		configParam(CROSS_CV_PARAM, 0.f, 1.f, 0.f, "");
-		configParam(ATTEN_PARAM, -1.f, 1.f, 0.f, "");
-		configParam(ATTEN_CV_PARAM, 0.f, 1.f, 0.f, "");
-		configInput(A_INPUT, "");
-		configInput(B_INPUT, "");
-		configInput(CROSS_CV_INPUT, "");
-		configInput(ATTEN_CV_INPUT, "");
-		configOutput(AUDIO_OUTPUT, "");
+		configParam(CROSS_PARAM, 0.f, 1.f, 0.5f, "Crossfade");
+		configParam(CROSS_CV_PARAM, 0.f, 1.f, 0.f, "Crossfade CV");
+		configParam(ATTEN_PARAM, -1.f, 1.f, 0.f, "Attenuverter");
+		configParam(ATTEN_CV_PARAM, 0.f, 1.f, 0.f, "Attenuverter CV");
+		configInput(A_INPUT, "Audio Signal A");
+		configInput(B_INPUT, "Audio Signal B");
+		configInput(CROSS_CV_INPUT, "Crossfade CV");
+		configInput(ATTEN_CV_INPUT, "Attenuverter CV");
+		configOutput(AUDIO_OUTPUT, "Audio");
 	}
 
 	float CrossKnob = 0;
@@ -78,14 +78,14 @@ struct Xtenuat3hrWidget : ModuleWidget {
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Xtenuat3hr.svg")));
 
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(5.08, 30.403)), module, Xtenuat3hr::CROSS_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(5.08, 40.403)), module, Xtenuat3hr::CROSS_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(5.08, 40.403)), module, Xtenuat3hr::CROSS_CV_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(5.08, 82.403)), module, Xtenuat3hr::ATTEN_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(5.08, 92.403)), module, Xtenuat3hr::ATTEN_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(5.08, 92.403)), module, Xtenuat3hr::ATTEN_CV_PARAM));
 
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.08, 10.403)), module, Xtenuat3hr::A_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.08, 20.403)), module, Xtenuat3hr::B_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.08, 50.403)), module, Xtenuat3hr::CROSS_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.08, 102.403)), module, Xtenuat3hr::ATTEN_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(5.08, 50.403)), module, Xtenuat3hr::CROSS_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(5.08, 102.403)), module, Xtenuat3hr::ATTEN_CV_INPUT));
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.08, 112.403)), module, Xtenuat3hr::AUDIO_OUTPUT));
 	}

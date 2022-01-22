@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="12"
+   height="12"
+   viewBox="0 0 3.1749999 3.175"
+   version="1.1"
+   id="svg8607"
+   sodipodi:docname="Tiny3HRCVPot.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8609"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="81.919999"
+     inkscape:cx="1198.9319"
+     inkscape:cy="11.639404"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g10298"
+     units="px" />
+  <defs
+     id="defs8604" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Knobs Group"
+     id="knobs-group">
+    <g
+       inkscape:groupmode="layer"
+       inkscape:label="Small"
+       id="g10300">
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Main color"
+         id="g10294" />
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Tick"
+         id="g10298">
+        <g
+           id="g10411"
+           transform="rotate(135,1.6095328,1.6095326)">
+          <ellipse
+             cx="1.6095328"
+             cy="1.6095326"
+             id="id_Small"
+             style="fill:#3d3846;stroke:#f66151;stroke-width:0.272728"
+             rx="1.3636363"
+             ry="1.363636" />
+          <path
+             d="M 1.6095311,1.6095427 0.54861698,2.670452"
+             style="fill:none;stroke:#000000;stroke-width:0.272728"
+             id="path10296" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

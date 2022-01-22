@@ -2,14 +2,14 @@
   "slug": "3HR",
   "name": "3HR",
   "version": "2.0.0",
-  "license": "GPL-3.0-or-later",
+  "license": "Freeware",
   "brand": "3HR",
   "author": "Robin Hammar",
-  "authorEmail": "jobbin.hammar@gmail.com",
+  "authorEmail": "",
   "authorUrl": "",
-  "pluginUrl": "https://github.com/Geekachuqt/3HR",
-  "manualUrl": "https://github.com/Geekachuqt/3HR",
-  "sourceUrl": "https://github.com/Geekachuqt/3HR",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
   "donateUrl": "",
   "changelogUrl": "",
   "modules": [
@@ -29,6 +29,22 @@
       "tags": [
         "attenuator",
         "utility"
+      ]
+    },
+    {
+      "slug": "PROTOTYP3HR",
+      "name": "PROTOTYP3HR",
+      "description": "Prototype module",
+      "tags": [
+        "utilities"
+      ]
+    },
+    {
+      "slug": "FM3HR",
+      "name": "FM3HR",
+      "description": "Sequential Self-FMing Oscillator",
+      "tags": [
+        "oscillator"
       ]
     }
   ]

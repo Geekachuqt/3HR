@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="15"
+   height="15"
+   viewBox="0 0 3.9687499 3.9687503"
+   version="1.1"
+   id="svg5762"
+   sodipodi:docname="TinyJack.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview5764"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="3.6233469"
+     inkscape:cx="58.647435"
+     inkscape:cy="41.260195"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g7106"
+     units="px" />
+  <defs
+     id="defs5759" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Jacks Utilities"
+     id="jacks-utilities"
+     style="display:inline">
+    <g
+       inkscape:groupmode="layer"
+       inkscape:label="Centering circles"
+       id="jacks-utilities-centering"
+       style="display:inline">
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Jack"
+         id="g7029"
+         style="display:inline">
+        <ellipse
+           cx="1.9402778"
+           cy="1.9402778"
+           style="fill:none;stroke:#000000;stroke-width:0.0256991"
+           id="circle7027"
+           rx="1.9274281"
+           ry="1.9274282" />
+      </g>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Jacks Group"
+     id="jacks-group"
+     style="display:inline">
+    <g
+       inkscape:groupmode="layer"
+       inkscape:label="Jack"
+       id="g7040"
+       style="display:inline">
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Nut skirt"
+         id="g7038"
+         style="display:inline">
+        <ellipse
+           cx="1.9402778"
+           cy="1.9402778"
+           style="fill:#ffaaaa;stroke:#b5b5b5;stroke-width:0.252243;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="circle7036"
+           rx="1.6704379"
+           ry="1.6704377" />
+      </g>
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       inkscape:label="Jack"
+       id="g7112"
+       style="display:inline">
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Main color"
+         id="g7106">
+        <ellipse
+           cx="1.9402778"
+           cy="1.9402778"
+           id="circle7104"
+           style="fill:#000000;stroke:#f66151;stroke-width:0.321238"
+           rx="0.61035222"
+           ry="0.61035228" />
+      </g>
+      <g
+         inkscape:groupmode="layer"
+         inkscape:label="Nut skirt"
+         id="g7110"
+         style="display:inline" />
+    </g>
+  </g>
+</svg>

@@ -43,6 +43,7 @@ struct Repeat3hr : Module {
 	};
 	enum OutputId {
 		AUDIO_OUTPUT,
+		TEST_OUTPUT,
 		TEMPO_TRIG_OUTPUT,
 		OUTPUTS_LEN
 	};
@@ -76,7 +77,9 @@ struct Repeat3hr : Module {
 		configInput(WET_CV_INPUT, "Wet Control Signal");
 		configInput(AUDIO_INPUT, "Input Audio Signal");
 		configOutput(AUDIO_OUTPUT, "Output Audio Signal");
+		configOutput(TEST_OUTPUT, "Output Audio Signal");
 		configOutput(TEMPO_TRIG_OUTPUT, "Output Time Signal");
+
 	}
 
 //GLOBALS
@@ -116,12 +119,13 @@ struct Repeat3hr : Module {
 	bool startInterpolating = false;
 	bool startupComplete = false;
 	bool fadeIn = false;
+	bool fadeOut = false;
 	bool setupCompleted = false;
 
 	std::vector<float> PlayBuffer = {};
 
 	float fraction = 1;
-	float Crossfader = 1;
+	float Crossfader = 0;
 	float DelayLineLength = 0;
 	float deltaTime = 0;
 	float remainingSamples = 0;
@@ -132,7 +136,7 @@ struct Repeat3hr : Module {
 	float SampleReductionFraction = 0;
 	float CrossfadeFraction = 1;
 
-	float CrossfadeSamples = 50; //experimentally determined value
+	float CrossfadeSamples = 500; //experimentally determined value
 
 
 //END GLOBALS
@@ -145,8 +149,10 @@ struct Repeat3hr : Module {
 
 		if(outputs[TEMPO_TRIG_OUTPUT].isConnected())outputs[TEMPO_TRIG_OUTPUT].setVoltage(0.f); //stop trig pulse if being sent
 
-		if(deltaTime != Time && resetTicker > 0 && fadeIn == false){ //checks if the time parameter has been modified since last sample. If it has, starts volume interpolation
+		if(deltaTime != Time && resetTicker > 0 && !startInterpolating){ //checks if the time parameter has been modified since last sample. If it has, starts volume interpolation
 			startInterpolating = true;
+			fadeOut = true;
+			fadeIn = false;
 		}
 
 		deltaTime = Time;	
@@ -154,29 +160,31 @@ struct Repeat3hr : Module {
 		outputs[AUDIO_OUTPUT].setVoltage(clamp(dryAmount * AudioInput + wetAmount * PlayBuffer[TickCounter],-5.f,5.f)); //sends signal out
 
 		if(startInterpolating){
-			fraction = 1 - ((Crossfader) / remainingSamples); //set the volume reduction
-			if((Crossfader++) / (remainingSamples) >= 1){
-				Crossfader = 0; //reset crossfader
-				fadeIn = true; //activate fade-in path
-				startInterpolating = false;	//deactivate interpolation path
-				fraction = 0; //ensure that final returnvalue is 0
+			if(fadeOut){
+				fraction -= fraction*(1 / remainingSamples); //set the volume reduction
+				if(1 / remainingSamples >= 1){
+					fadeOut = false;
+					fadeIn = true;
+					fraction = 0; //ensure that final returnvalue is 0
+					Crossfader = 0;
+					CrossfadeFraction = 0;
+				}
 			}
-		}
-
-		if(fadeIn){
-			if(TickCounter<CrossfadeSamples){
-				CrossfadeFraction = std::pow(TickCounter/CrossfadeSamples,2);
-				fraction = 1; //resets the interpolation fraction is reset
-			}
-			if(TickCounter == CrossfadeSamples){
-				CrossfadeFraction = 1;
-				fadeIn = false;
+			if(fadeIn){
+				fraction = 1;
+				CrossfadeFraction = Crossfader / CrossfadeSamples;
+				if(Crossfader++ == CrossfadeSamples){
+					fraction = 1;
+					fadeIn = false;
+					fadeOut = false;
+					startInterpolating = false;
+				}
 			}
 		}
 
 		Downsampler++; //increase the downsampling ticker. 
-
-		PlayBuffer[TickCounter] = Bitcrush(Downsample(inputAmount * AudioInput + CrossfadeFraction*fraction*(feedbackAmount * PlayBuffer[TickCounter]),args),args);
+		outputs[TEST_OUTPUT].setVoltage(fraction*CrossfadeFraction*10);
+		PlayBuffer[TickCounter] = CrossfadeFraction*fraction*Bitcrush(Downsample(inputAmount * AudioInput + (feedbackAmount * PlayBuffer[TickCounter]),args),args);
 
 		TickCounter++; //increase the ticker
 
@@ -246,7 +254,6 @@ struct Repeat3hr : Module {
 		bitcrushAmount = clamp(BitcrushKnob-(BitcrushCV*BitcrushInput),0.f,8.f);
 		DelayLineLength = round(Time / args.sampleTime);
 		remainingSamples = DelayLineLength - TickCounter;
-		CrossfadeSamples = 30 + 500*Time;
 	}
 };
 
@@ -255,31 +262,32 @@ struct Repeat3hrWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Repeat3hr.svg")));
 
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(10.16, 14.403)), module, Repeat3hr::TIME_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(10.16, 14.403)), module, Repeat3hr::TIME_CV_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(35.422, 15.803)), module, Repeat3hr::FINE_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(60.72, 14.403)), module, Repeat3hr::FINE_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(60.72, 14.403)), module, Repeat3hr::FINE_CV_PARAM));
 		addParam(createParamCentered<Rogan1PSWhite>(mm2px(Vec(35.422, 30.403)), module, Repeat3hr::TIME_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(10.16, 48.403)), module, Repeat3hr::CRUSH_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(20.32, 48.403)), module, Repeat3hr::CRUSH_CV_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(50.64, 48.403)), module, Repeat3hr::FEEDBACK_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(20.32, 48.403)), module, Repeat3hr::CRUSH_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(50.64, 48.403)), module, Repeat3hr::FEEDBACK_CV_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(60.72, 48.403)), module, Repeat3hr::FEEDBACK_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(10.16, 86.403)), module, Repeat3hr::INPUT_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(20.32, 86.403)), module, Repeat3hr::INPUT_CV_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(30.48, 116.403)), module, Repeat3hr::DRY_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(20.32, 86.403)), module, Repeat3hr::INPUT_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(30.48, 116.403)), module, Repeat3hr::DRY_CV_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(20.32, 116.557)), module, Repeat3hr::DRY_PARAM));
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(40.56, 116.403)), module, Repeat3hr::WET_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(40.56, 116.403)), module, Repeat3hr::WET_CV_PARAM));
 		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(50.64, 116.403)), module, Repeat3hr::WET_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 23.403)), module, Repeat3hr::TIME_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(60.72, 23.403)), module, Repeat3hr::FINE_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(20.32, 57.403)), module, Repeat3hr::CRUSH_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(50.64, 57.403)), module, Repeat3hr::FEEDBACK_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(20.32, 95.403)), module, Repeat3hr::INPUT_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(30.496, 107.403)), module, Repeat3hr::DRY_CV_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(40.56, 107.403)), module, Repeat3hr::WET_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(10.16, 23.403)), module, Repeat3hr::TIME_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(60.72, 23.403)), module, Repeat3hr::FINE_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 57.403)), module, Repeat3hr::CRUSH_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(50.64, 57.403)), module, Repeat3hr::FEEDBACK_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 95.403)), module, Repeat3hr::INPUT_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(30.496, 107.403)), module, Repeat3hr::DRY_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(40.56, 107.403)), module, Repeat3hr::WET_CV_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 116.403)), module, Repeat3hr::AUDIO_INPUT));
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(60.72, 116.403)), module, Repeat3hr::AUDIO_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(60.72, 100.403)), module, Repeat3hr::TEST_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(35.422, 60.403)), module, Repeat3hr::TEMPO_TRIG_OUTPUT));
 
 		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(35.422, 50.403)), module, Repeat3hr::TEMPO_LIGHT));

@@ -12,3 +12,22 @@ extern Plugin* pluginInstance;
 
 extern Model* modelRepeat3hr;
 extern Model* modelXtenuat3hr;
+extern Model* modelPROTOTYP3HR;
+extern Model* modelFM3HR;
+
+// JACKS
+
+struct TinyJack : app::SvgPort {
+	TinyJack() {
+		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/TinyJack.svg")));
+	}
+};
+// KNOBS
+
+struct Tiny3HRCVPot : app::SvgKnob {
+	Tiny3HRCVPot() {
+		minAngle = -0.75 * M_PI;
+		maxAngle = 0.75 * M_PI;
+		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Tiny3HRCVPot.svg")));
+	}
+};
