@@ -43,7 +43,6 @@ struct Repeat3hr : Module {
 	};
 	enum OutputId {
 		AUDIO_OUTPUT,
-		TEST_OUTPUT,
 		TEMPO_TRIG_OUTPUT,
 		OUTPUTS_LEN
 	};
@@ -77,7 +76,6 @@ struct Repeat3hr : Module {
 		configInput(WET_CV_INPUT, "Wet Control Signal");
 		configInput(AUDIO_INPUT, "Input Audio Signal");
 		configOutput(AUDIO_OUTPUT, "Output Audio Signal");
-		configOutput(TEST_OUTPUT, "Output Audio Signal");
 		configOutput(TEMPO_TRIG_OUTPUT, "Output Time Signal");
 
 	}
@@ -183,7 +181,6 @@ struct Repeat3hr : Module {
 		}
 
 		Downsampler++; //increase the downsampling ticker. 
-		outputs[TEST_OUTPUT].setVoltage(fraction*CrossfadeFraction*10);
 		PlayBuffer[TickCounter] = CrossfadeFraction*fraction*Bitcrush(Downsample(inputAmount * AudioInput + (feedbackAmount * PlayBuffer[TickCounter]),args),args);
 
 		TickCounter++; //increase the ticker
@@ -287,7 +284,6 @@ struct Repeat3hrWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 116.403)), module, Repeat3hr::AUDIO_INPUT));
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(60.72, 116.403)), module, Repeat3hr::AUDIO_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(60.72, 100.403)), module, Repeat3hr::TEST_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(35.422, 60.403)), module, Repeat3hr::TEMPO_TRIG_OUTPUT));
 
 		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(35.422, 50.403)), module, Repeat3hr::TEMPO_LIGHT));
