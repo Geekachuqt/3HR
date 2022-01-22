@@ -2,14 +2,14 @@
   "slug": "3HR",
   "name": "3HR",
   "version": "2.0.0",
-  "license": "Freeware",
+  "license": "GPL-3.0-or-later",
   "brand": "3HR",
   "author": "Robin Hammar",
-  "authorEmail": "",
+  "authorEmail": "jobbin.hammar@gmail.com",
   "authorUrl": "",
-  "pluginUrl": "",
-  "manualUrl": "",
-  "sourceUrl": "",
+  "pluginUrl": "https://github.com/Geekachuqt/3HR",
+  "manualUrl": "https://github.com/Geekachuqt/3HR",
+  "sourceUrl": "https://github.com/Geekachuqt/3HR",
   "donateUrl": "",
   "changelogUrl": "",
   "modules": [
@@ -29,14 +29,6 @@
       "tags": [
         "attenuator",
         "utility"
-      ]
-    },
-    {
-      "slug": "PROTOTYP3HR",
-      "name": "PROTOTYP3HR",
-      "description": "Prototype module",
-      "tags": [
-        "utilities"
       ]
     },
     {
