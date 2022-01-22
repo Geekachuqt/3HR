@@ -12,7 +12,6 @@ extern Plugin* pluginInstance;
 
 extern Model* modelRepeat3hr;
 extern Model* modelXtenuat3hr;
-extern Model* modelPROTOTYP3HR;
 extern Model* modelFM3HR;
 
 // JACKS
