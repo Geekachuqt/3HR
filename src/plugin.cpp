@@ -11,7 +11,6 @@ void init(Plugin* p) {
 	// p->addModel(modelMyModule);
 	p->addModel(modelRepeat3hr);
 	p->addModel(modelXtenuat3hr);
-	p->addModel(modelPROTOTYP3HR);
 	p->addModel(modelFM3HR);
 	p->addModel(modelENVELOOP3HR);
 	p->addModel(modelFMFILT3HR);
