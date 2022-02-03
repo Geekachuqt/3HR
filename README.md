@@ -1,7 +1,7 @@
 # 3HR VCVRack Modules
 
 
-![Repeat3hr](https://user-images.githubusercontent.com/24296465/149802856-05653a73-5a63-424b-b74f-ec53c954aa8e.png)
+![Repeat3hr](https://github.com/Geekachuqt/3HR/blob/main/docs/Repeat3hr.png)
 
 ### REPEAT3HR
 
@@ -11,16 +11,30 @@ Every parameter is fully CV-controllable, and works by adding the incoming signa
 
 Finally, it also outputs a trig pulse every time the delayline resets. This allows you to, per example, trigger envelopes in sync with the output of the module, furthering the fun you can have with manipulating the delay time.
 
-![Xtenuvert3hr](https://user-images.githubusercontent.com/24296465/149802864-7715eb95-3f94-409a-969e-16fc0c9c960e.png)
+![Xtenuvat3hr](https://github.com/Geekachuqt/3HR/blob/main/docs/Xtenuvert3hr.png)
 
 ### XTENUAT3HR
 
-XTENUAT3HR is a CV tool designed to crossfade two CV signals, and attenuvert them. This can create some really interesting and fun patterns from just two base signals.
+XTENUAT3HR is a CV tool designed to crossfade two signals and attenuvert them. This can create some really interesting and fun patterns from just two base signals.
 
-The Attenuverter doesn't just apply a -1 multiplier to the signal, but rather fully inverts it - turning +10V to 0 and vice versa.
+The Attenuverter doesn't just apply a -1 multiplier to the signal, but rather fully inverts it - turning +10V to 0 and vice versa. It is fully polyphonic, supporting both polyphonic audio inputs and CV inputs.
 
-![FM3HR](https://user-images.githubusercontent.com/24296465/150647100-5092ccd8-6d15-4874-9e75-8df0494a5f04.png)
+![FM3HR](https://github.com/Geekachuqt/3HR/blob/main/docs/FM3HR.png)
 
 ### FM3HR
 
-FM3HR is an oscillator that pushes a continuous waveform oscillator through three sequential FM algorithms (additive -> linear -> exponential) and a smoother, and outputs each stage separately. Each of the FM stages can be CV controlled, and are arranged in a cascading manner so that each stage acts as both the carrier and the modulator for the next. Each FM stage can also be used with external modulators. The smoother at the end of the chain applies a slew algorithm which reduces the high frequency content of the generated waveform. It acts similarly to a low-pass filter, with slight differences.
+FM3HR is an oscillator that pushes a continuous waveform oscillator through three sequential FM algorithms (additive -> linear -> exponential) and a smoother, and outputs each stage separately. Each of the FM stages can be CV controlled, and are arranged in a cascading manner so that each stage acts as both the carrier and the modulator for the next. Each FM stage can also be used with external modulators. The smoother at the end of the chain applies a slew algorithm which reduces the high frequency content of the generated waveform. It acts similarly to a low-pass filter, with slight differences. It is fully polyphonic, supporting polyphonic V/Oct, CV, and external FM source polyphony.
+
+![NVLOP3HR](https://github.com/Geekachuqt/3HR/blob/main/docs/NVLOP3HR.png)
+
+### NVLOP3HR
+
+NVLOP3HR is a dual multifunction envelope generator with curavture control and separate loop switches. In normal mode, it acts as a classic envelope generator sporting linear envelopes that are then exponentialized through the curvature control. The fun stuff lies in the multiplicative outs combined with the loop switches.
+
+In loop mode, the envelopes will loop **only while a gate is sustained**. This allows you to easily create some really interesting rhythmical envelopes. It also loves to be patched into inself, by having one envelope modulate the sustain of the other, per example. Combined with the multiplicative outs, this can generate some really long, musical, psuedo-random CV sequences. Upon release, a looping envelope will immediately proceed to its release stage, and then end.
+
+### FMFILT3HR
+
+![FMFILT3HR](https://github.com/Geekachuqt/3HR/blob/main/docs/FMFILT3HR.png)
+
+FMFILT3HR is a lowpass filter designed for FM manipulation. It features two FM ports with different algorithms (Additive and multiplicative) which can be controlled manually or with CV. The FM modulation affects the Cutoff frequency of the filter. At its core, the filter is basically two 18dB butterworth filters in sequence with different resonance values, resulting in just enough dirt to give the input a unique characteristic at high resonance values without having the filter explode in your face.
