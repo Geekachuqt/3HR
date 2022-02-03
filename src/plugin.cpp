@@ -11,7 +11,10 @@ void init(Plugin* p) {
 	// p->addModel(modelMyModule);
 	p->addModel(modelRepeat3hr);
 	p->addModel(modelXtenuat3hr);
+	p->addModel(modelPROTOTYP3HR);
 	p->addModel(modelFM3HR);
+	p->addModel(modelENVELOOP3HR);
+	p->addModel(modelFMFILT3HR);
 	// Any other plugin initialization may go here.
 	// As an alternative, consider lazy-loading assets and lookup tables when your module is created to reduce startup times of Rack.
 }

@@ -134,7 +134,9 @@ struct Repeat3hr : Module {
 	float SampleReductionFraction = 0;
 	float CrossfadeFraction = 1;
 
-	float CrossfadeSamples = 500; //experimentally determined value
+	float CrossfadeSamples = 250; //experimentally determined value
+
+	dsp::PulseGenerator pulseGen;
 
 
 //END GLOBALS
@@ -154,12 +156,12 @@ struct Repeat3hr : Module {
 		}
 
 		deltaTime = Time;	
-
-		outputs[AUDIO_OUTPUT].setVoltage(clamp(dryAmount * AudioInput + wetAmount * PlayBuffer[TickCounter],-5.f,5.f)); //sends signal out
+		outputs[TEMPO_TRIG_OUTPUT].setVoltage((pulseGen.process(args.sampleTime)) ? 10.f : 0.f);
+		outputs[AUDIO_OUTPUT].setVoltage(dryAmount * AudioInput + wetAmount * PlayBuffer[TickCounter]); //sends signal out
 
 		if(startInterpolating){
 			if(fadeOut){
-				fraction -= fraction*(1 / remainingSamples); //set the volume reduction
+				fraction -= fraction*(1 / remainingSamples); //set the volume reduction-
 				if(1 / remainingSamples >= 1){
 					fadeOut = false;
 					fadeIn = true;
@@ -200,15 +202,15 @@ struct Repeat3hr : Module {
 	}
 	void Blink(){
 		lights[TEMPO_LIGHT].setBrightness(1.f);
-		if(outputs[TEMPO_TRIG_OUTPUT].isConnected())outputs[TEMPO_TRIG_OUTPUT].setVoltage(10.f);
+		if(outputs[TEMPO_TRIG_OUTPUT].isConnected()) pulseGen.trigger(0.001f);
 	}
 	float Bitcrush(float input, const ProcessArgs& args){
 		//standard bitcrush algorithm
-		float Quantization = std::pow(2,BitcrushKnob);
+		float Quantization = simd::pow(2,BitcrushKnob);
 		return (round((input)*Quantization) / Quantization);
 	}
 	float Downsample(float input, const ProcessArgs& args){
-		SampleReductionFraction = 1+250*(1-bitcrushAmount/8.f); //sample the input stream onces every this many samples
+		SampleReductionFraction = 1+500*(1-bitcrushAmount/8.f); //sample the input stream onces every this many samples
 		if(Downsampler >= SampleReductionFraction){
 			sample = input;
 			Downsampler = 0;
@@ -241,15 +243,15 @@ struct Repeat3hr : Module {
 		DryInput = (inputs[DRY_CV_INPUT].isConnected()) ? inputs[DRY_CV_INPUT].getVoltage()*0.1f : 0;
 		WetInput = (inputs[WET_CV_INPUT].isConnected()) ? inputs[WET_CV_INPUT].getVoltage()*0.1f : 0;
 
-		AudioInput = (inputs[AUDIO_INPUT].isConnected()) ? inputs[AUDIO_INPUT].getVoltage() : 0;
+		AudioInput = (inputs[AUDIO_INPUT].isConnected()) ? inputs[AUDIO_INPUT].getVoltageSum() : 0;
 
 		Time = TimeKnob + (TimeCV*TimeInput) + FineKnob + (FineCV*FineInput);
-		feedbackAmount = clamp(std::pow(FeedbackKnob + (FeedbackCV*FeedbackInput),2),0.f,1.2f); //uses squared value to improve "feel" of turning knob
+		feedbackAmount = clamp(simd::pow(FeedbackKnob + (FeedbackCV*FeedbackInput),2),0.f,1.2f); //uses squared value to improve "feel" of turning knob
 		inputAmount = InputKnob + (InputCV*InputInput);
 		dryAmount = clamp((DryKnob + (DryCV * DryInput)),0.f,1.f);
 		wetAmount = clamp((WetKnob + (WetCV * WetCV)),0.f,1.f);
 		bitcrushAmount = clamp(BitcrushKnob-(BitcrushCV*BitcrushInput),0.f,8.f);
-		DelayLineLength = round(Time / args.sampleTime);
+		DelayLineLength = simd::round(Time / args.sampleTime);
 		remainingSamples = DelayLineLength - TickCounter;
 	}
 };
@@ -259,25 +261,25 @@ struct Repeat3hrWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/Repeat3hr.svg")));
 
-		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(10.16, 14.403)), module, Repeat3hr::TIME_CV_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(35.422, 15.803)), module, Repeat3hr::FINE_PARAM));
-		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(60.72, 14.403)), module, Repeat3hr::FINE_CV_PARAM));
-		addParam(createParamCentered<Rogan1PSWhite>(mm2px(Vec(35.422, 30.403)), module, Repeat3hr::TIME_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(10.16, 48.403)), module, Repeat3hr::CRUSH_PARAM));
-		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(20.32, 48.403)), module, Repeat3hr::CRUSH_CV_PARAM));
-		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(50.64, 48.403)), module, Repeat3hr::FEEDBACK_CV_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(60.72, 48.403)), module, Repeat3hr::FEEDBACK_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(10.16, 86.403)), module, Repeat3hr::INPUT_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(10.16, 18.803)), module, Repeat3hr::TIME_CV_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(35.422, 18.803)), module, Repeat3hr::FINE_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(60.72, 17.603)), module, Repeat3hr::FINE_CV_PARAM));
+		addParam(createParamCentered<Rogan1PSWhite>(mm2px(Vec(35.422, 33.603)), module, Repeat3hr::TIME_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(10.16, 51.403)), module, Repeat3hr::CRUSH_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(20.32, 51.403)), module, Repeat3hr::CRUSH_CV_PARAM));
+		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(50.64, 51.403)), module, Repeat3hr::FEEDBACK_CV_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(60.72, 51.403)), module, Repeat3hr::FEEDBACK_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(10.16, 86.403)), module, Repeat3hr::INPUT_PARAM));
 		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(20.32, 86.403)), module, Repeat3hr::INPUT_CV_PARAM));
 		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(30.48, 116.403)), module, Repeat3hr::DRY_CV_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(20.32, 116.557)), module, Repeat3hr::DRY_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(20.32, 116.557)), module, Repeat3hr::DRY_PARAM));
 		addParam(createParamCentered<Tiny3HRCVPot>(mm2px(Vec(40.56, 116.403)), module, Repeat3hr::WET_CV_PARAM));
-		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(50.64, 116.403)), module, Repeat3hr::WET_PARAM));
+		addParam(createParamCentered<Trimpot>(mm2px(Vec(50.64, 116.403)), module, Repeat3hr::WET_PARAM));
 
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(10.16, 23.403)), module, Repeat3hr::TIME_CV_INPUT));
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(60.72, 23.403)), module, Repeat3hr::FINE_CV_INPUT));
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 57.403)), module, Repeat3hr::CRUSH_CV_INPUT));
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(50.64, 57.403)), module, Repeat3hr::FEEDBACK_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(10.16, 26.403)), module, Repeat3hr::TIME_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(60.72, 26.403)), module, Repeat3hr::FINE_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 60.403)), module, Repeat3hr::CRUSH_CV_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(50.64, 60.403)), module, Repeat3hr::FEEDBACK_CV_INPUT));
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 95.403)), module, Repeat3hr::INPUT_CV_INPUT));
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(30.496, 107.403)), module, Repeat3hr::DRY_CV_INPUT));
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(40.56, 107.403)), module, Repeat3hr::WET_CV_INPUT));
