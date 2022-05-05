@@ -9,34 +9,52 @@ template <typename T> struct OscillatorCore{
 	float_4 TypeThreeOutput = 0;
 	float_4 SmoothOutput = 0;
 	float_4 Phase = 0;
+	float_4 blep = 0;
 
 	dsp::ExponentialSlewLimiter slew1{};
 	dsp::ExponentialSlewLimiter slew2{};	
 	dsp::ExponentialSlewLimiter slew3{};	
-	dsp::ExponentialSlewLimiter slew4{};	
+	dsp::ExponentialSlewLimiter slew4{};
+	dsp::MinBlepGenerator<4, 4, float> minBlepperSaw[4];
+	dsp::MinBlepGenerator<4, 4, float> minBlepperSqr[4];
+
+	float_4 sqramnt = 1;
+	float_4 sqrphase = 0;
 
 	void Advance(float_4 sampleTime, float_4 CoarseAmount, float_4 FineAmount, float_4 WaveAmount, float_4 FM1Amount, float_4 FM2Amount, float_4 FM3Amount, float_4 SmoothAmount, float_4 sampleRate, Input FM1, Input FM2, Input FM3, Output OscOut, Output FM1Out, Output FM2Out, Output FM3Out, Output MainOut, int firstChannel){
-		Phase += sampleTime * Frequency;
+		float_4 deltaPhase = Frequency * sampleTime;
+		Phase += deltaPhase;
 		for (int p = 0; p < Phase.size; p++){
 			if(Phase[p]>=1){
 				Phase[p] -= 1;
+				if(WaveAmount[p]<=2){
+
+				}
+				else if(WaveAmount[p]<=2){
+					minBlepperSaw[p].insertDiscontinuity(-Phase[p]/deltaPhase[p],(WaveAmount[p]-1)*(2));
+				}
+				else if(WaveAmount[p]<=3){
+					minBlepperSaw[p].insertDiscontinuity(-Phase[p]/deltaPhase[p],(3-WaveAmount[p])*(2));
+					minBlepperSqr[p].insertDiscontinuity(-Phase[p]/deltaPhase[p],(WaveAmount[p]-2)*(-2*sqramnt[p]));
+				}
+				else if(WaveAmount[p]<=4){
+					minBlepperSqr[p].insertDiscontinuity(-Phase[p]/deltaPhase[p],(WaveAmount[p]-3)*(-2*sqramnt[p]));
+				}
+				sqramnt[p]*=-1;
 			}
 		}
 		for(int c = 0; c <= 3; c++){
 			if(WaveAmount[c] <= 1){
-				OscOutput[c] = (1-WaveAmount[c])*SineWave(Phase[c]) + WaveAmount[c] * Triangle(Phase[c]);
+				OscOutput[c] = (1-WaveAmount[c])*SineWave(Phase[c], blep[c]) + WaveAmount[c] * Triangle(Phase[c], blep[c]);
 			}
 			else if(WaveAmount[c] <= 2){
-				OscOutput[c] = (2-WaveAmount[c])*Triangle(Phase[c]) + (WaveAmount[c]-1)*SineSquare(Phase[c]);
+				OscOutput[c] = (2-WaveAmount[c])*Triangle(Phase[c], blep[c]) + (WaveAmount[c]-1)*SawWave(Phase[c], blep[c]+(minBlepperSaw[c].process()));
 			}
 			else if(WaveAmount[c] <= 3){
-				OscOutput[c] = (3-WaveAmount[c])*SineSquare(Phase[c]) + (WaveAmount[c]-2)*SawWave(Phase[c]);
+				OscOutput[c] = (3-WaveAmount[c])*(SawWave(Phase[c], blep[c])+(minBlepperSaw[c].process())) + ((WaveAmount[c]-2)*Square(Phase[c],0.5f, sqramnt[c])+minBlepperSqr[c].process());
 			}
 			else if(WaveAmount[c] <= 4){
-				OscOutput[c] = (4-WaveAmount[c])*SawWave(Phase[c]) + (WaveAmount[c]-3)*Square(Phase[c],0.5f);
-			}
-			else if(WaveAmount[c] <= 5){
-				OscOutput[c] = Square(Phase[c],(0.5-((WaveAmount[c]-4)*0.45))); //0.45 chosen so as to not make pulse too small
+				OscOutput[c] = Square(Phase[c],(0.5-((WaveAmount[c]-3)*0.45)), sqramnt[c])+minBlepperSqr[c].process(); //0.45 chosen so as to not make pulse too small
 			}
 		}
 
@@ -88,23 +106,17 @@ template <typename T> struct OscillatorCore{
 
 //SIMD waveform generators
 
-	float SawWave(float Phase){
+	float SawWave(float Phase, float blep){	
 		return (0.5-Phase)*2;
 	}
-	float SineSquare(float Phase){
-		float rval = (Phase < 0.5f) ? Phase : -Phase;
-		return (rval+0.25)*1.25;
-	}
-	float Triangle(float Phase){
+	float Triangle(float Phase, float blep){
 		float rval = (Phase < 0.5f) ? Phase : 1-Phase;
 		return (rval-0.25)*4;
 	}
-	float Square(float Phase, float PWM){
-		float rval = (Phase < PWM) ? 1 : -1;
-
-		return rval;
+	float Square(float Phase, float PWM, float blep){
+		return blep;
 	}
-	float SineWave(float Phase){
+	float SineWave(float Phase, float blep){
 		return sin(2*M_PI*Phase);
 	}
 };
@@ -138,7 +150,6 @@ struct FM3HR : Module {
 		FM3_INPUT,
 		FM3_MOD_INPUT,
 		SMOOTH_INPUT,
-		RESET_INPUT,
 		NOTE_INPUT,
 		INPUTS_LEN
 	};
@@ -161,7 +172,7 @@ struct FM3HR : Module {
 		configParam(COARSE_CV_PARAM, 0.f, 1.f, 0.f, "Coarse CV Amount");
 		configParam(FINE_CV_PARAM, 0.f, 1.f, 0.f, "Coarse CV Amount");
 		configParam(WAVE_CV_PARAM, 0.f, 1.f, 0.f, "Waveform CV Amount");
-		configParam(WAVE_PARAM, 0.f, 5.f, 0.f, "Waveform");
+		configParam(WAVE_PARAM, 0.f, 4.f, 0.f, "Waveform");
 		configParam(FM1_CV_PARAM, 0.f, 1.f, 0.f, "FM1 CV Amount");
 		configParam(FM1_PARAM, 0.f, 1.f, 0.f, "FM1 Amount");
 		configParam(FM2_CV_PARAM, 0.f, 1.f, 0.f, "FM2 CV Amount");
@@ -180,7 +191,6 @@ struct FM3HR : Module {
 		configInput(FM3_INPUT, "FM3 CV");
 		configInput(FM3_MOD_INPUT, "FM3 Modulator");
 		configInput(SMOOTH_INPUT, "Smooth CV");
-		configInput(RESET_INPUT, "Reset");
 		configInput(NOTE_INPUT, "1V/Oct");		
 		configOutput(OSC_OUTPUT, "Oscillator");
 		configOutput(FM1_OUTPUT, "FM1");
@@ -188,9 +198,6 @@ struct FM3HR : Module {
 		configOutput(FM3_OUTPUT, "FM3");
 		configOutput(MAIN_OUTPUT, "Main");
 	}
-
-	bool ResetPhase = false;
-	bool ReadyToReset = true;
 
 	float_4 Frequency = 0;
 
@@ -251,17 +258,6 @@ struct FM3HR : Module {
 		FM2Amount = clamp(FM2Knob + FM2CV * inputs[FM2_INPUT].getPolyVoltageSimd<float_4>(c)*0.1F,0.f,1.f);
 		FM3Amount = clamp(FM3Knob + FM3CV * inputs[FM3_INPUT].getPolyVoltageSimd<float_4>(c)*0.1F,0.f,1.f);
 		SmoothAmount = clamp(SmoothKnob + SmoothCV * inputs[SMOOTH_INPUT].getPolyVoltageSimd<float_4>(c)*0.1F,0.f,1.f);
-
-		if(inputs[RESET_INPUT].getVoltage() == 10.f){
-			ResetPhase = true;
-			ReadyToReset = false;
-		}
-
-		if(inputs[RESET_INPUT].getVoltage() == 0.f && !ReadyToReset){
-			ReadyToReset = true;
-		}
-		
-
 	}
 };
 
@@ -296,8 +292,7 @@ struct FM3HRWidget : ModuleWidget {
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(7.193, 94.577)), module, FM3HR::FM3_INPUT));
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(14.625, 94.577)), module, FM3HR::FM3_MOD_INPUT));
 		addInput(createInputCentered<TinyJack>(mm2px(Vec(7.193, 106.54)), module, FM3HR::SMOOTH_INPUT));
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(29.731, 116.577)), module, FM3HR::RESET_INPUT));
-		addInput(createInputCentered<TinyJack>(mm2px(Vec(10.909, 116.577)), module, FM3HR::NOTE_INPUT));
+		addInput(createInputCentered<TinyJack>(mm2px(Vec(20.32, 116.577)), module, FM3HR::NOTE_INPUT));
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(33.321, 58.714)), module, FM3HR::OSC_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(33.321, 70.541)), module, FM3HR::FM1_OUTPUT));

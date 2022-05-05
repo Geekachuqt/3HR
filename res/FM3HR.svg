@@ -3,7 +3,7 @@
 
 <svg
    sodipodi:docname="FM3HR.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
    id="svg5"
    version="1.1"
    viewBox="0 0 40.64 128.5"
@@ -25,10 +25,10 @@
      showgrid="false"
      units="mm"
      inkscape:zoom="4.0000002"
-     inkscape:cx="-7.1249996"
-     inkscape:cy="435.87498"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:cx="-43.624998"
+     inkscape:cy="335.99998"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -63,7 +63,7 @@
     <g
        id="rect31"
        style="display:inline;fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.01, 0.01;stroke-dashoffset:0;stroke-opacity:1"
-       transform="matrix(0.56982981,0,0,0.99999085,0.07926409,0.10136898)">
+       transform="matrix(0.56982981,0,0,0.99999085,0.05742816,0.10078033)">
       <g
          id="path14654"
          style="fill:#c8c8c8;fill-opacity:1;stroke:#000000;stroke-width:0.0990775;stroke-miterlimit:4;stroke-dasharray:0.00990776, 0.00990776;stroke-dashoffset:0;stroke-opacity:1"
@@ -700,7 +700,7 @@
     </g>
     <g
        id="g20386"
-       transform="matrix(1.4778969,0,0,1.4778969,-14.018159,-31.030572)"
+       transform="matrix(1.4778969,0,0,1.4778969,-14.415034,-31.162864)"
        style="fill:#d35f5f;stroke:#b41818">
       <g
          id="path18986">
@@ -749,7 +749,7 @@
     </g>
     <g
        id="g2101"
-       transform="matrix(1.4174744,0,0,1.4174744,-12.409441,-24.744521)"
+       transform="matrix(1.4174744,0,0,1.4174744,-12.607878,-25.273687)"
        style="fill:#d35f5f;stroke:#b41818">
       <g
          id="path18986-5">
@@ -798,7 +798,7 @@
     </g>
     <g
        id="path19734"
-       transform="matrix(1.5576097,0,0,1.5576097,-9.1989414,-31.345707)"
+       transform="matrix(1.5576097,0,0,1.5576097,-9.0666497,-32.205603)"
        style="fill:#d35f5f;stroke:#b41818">
       <path
          style="color:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.165;-inkscape-stroke:none"
@@ -811,7 +811,7 @@
     </g>
     <g
        id="path19734-8"
-       transform="matrix(1.5576097,0,0,1.5576097,-9.1989414,-31.345707)"
+       transform="matrix(1.5576097,0,0,1.5576097,-9.0666497,-32.205603)"
        style="fill:#d35f5f;stroke:#b41818">
       <path
          style="color:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.165004;-inkscape-stroke:none"
@@ -824,7 +824,7 @@
     </g>
     <g
        id="g19991"
-       transform="matrix(1.529946,0,0,1.529946,-4.7271173,-28.098846)"
+       transform="matrix(1.529946,0,0,1.529946,-7.7036797,-28.892596)"
        style="fill:#d35f5f;stroke:#b41818">
       <g
          id="path19864">
@@ -847,64 +847,6 @@
            style="color:#000000;fill:#b41818;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
            d="m 19.900391,52.316406 -0.138672,0.08984 0.871093,1.322266 0.138672,-0.0918 z"
            id="path8776" />
-      </g>
-    </g>
-    <g
-       id="g8993">
-      <g
-         id="path19864-3"
-         transform="matrix(-0.84544839,0,0,-0.84544839,36.978879,98.436043)"
-         style="fill:#d35f5f;stroke:#b41818;stroke-width:0.288391">
-        <path
-           style="color:#000000;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-           d="m 19.833559,53.779144 -0.0022,-1.417703"
-           id="path8780" />
-        <path
-           style="color:#000000;fill:#b41818;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-           d="m 19.6875,52.361328 0.002,1.417969 h 0.289063 l -0.0039,-1.417969 z"
-           id="path8782" />
-      </g>
-      <g
-         id="g20053"
-         transform="matrix(-0.84544839,0,0,-0.84544839,36.978879,98.436043)"
-         style="fill:#d35f5f;stroke:#b41818;stroke-width:0.288391">
-        <g
-           id="g19991-7"
-           transform="matrix(1,0,0,-1,-0.89451721,107.40059)">
-          <g
-             id="path19864-0">
-            <path
-               style="color:#000000;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-               d="m 19.808012,53.717832 0.02339,-1.356391"
-               id="path8786" />
-            <path
-               style="color:#000000;fill:#b41818;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-               d="m 19.6875,52.359375 -0.02344,1.355469 0.289063,0.0059 0.02148,-1.357422 z"
-               id="path8788" />
-          </g>
-          <g
-             id="path19866-8">
-            <path
-               style="color:#000000;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-               d="M 20.753624,53.71341 19.831402,52.361441"
-               id="path8792" />
-            <path
-               style="color:#000000;fill:#b41818;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-               d="m 19.951172,52.279297 -0.238281,0.164062 0.921875,1.351563 0.238281,-0.16211 z"
-               id="path8794" />
-          </g>
-        </g>
-        <g
-           id="path19866-9">
-          <path
-             style="color:#000000;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-             d="M 20.702531,53.682754 19.831402,52.361441"
-             id="path8798" />
-          <path
-             style="color:#000000;fill:#b41818;fill-rule:evenodd;stroke:none;-inkscape-stroke:none"
-             d="m 19.951172,52.28125 -0.240235,0.160156 0.871094,1.320313 0.240235,-0.158203 z"
-             id="path8800" />
-        </g>
       </g>
     </g>
     <g
@@ -1053,7 +995,7 @@
        aria-label="1V/OCT"
        id="text12178"
        style="font-weight:bold;font-size:1.41111px;line-height:1.25;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Bold';stroke-width:0.264583"
-       transform="matrix(1.494782,0,0,1.494782,-5.3128384,-61.245145)">
+       transform="matrix(1.494782,0,0,1.494782,4.2494254,-61.245145)">
       <path
          d="m 8.4594969,121.0974 v 0.94671 h 0.2005044 v 0.13711 H 8.0798477 v -0.13711 h 0.2115287 v -0.76757 q -0.086816,0.0593 -0.1991264,0.0958 L 8.064,121.2242 q 0.1288465,-0.0372 0.2508028,-0.12678 z"
          id="path17389" />
@@ -1072,27 +1014,6 @@
       <path
          d="m 13.411473,121.08637 v 0.15365 h -0.325905 v 0.9412 h -0.192237 v -0.9412 h -0.323149 v -0.15365 z"
          id="path17399" />
-    </g>
-    <g
-       aria-label="RESET"
-       id="text12178-4"
-       style="font-weight:bold;font-size:1.41111px;line-height:1.25;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Bold';stroke-width:0.264583"
-       transform="matrix(1.4704445,0,0,1.4704445,-11.840244,-58.28086)">
-      <path
-         d="m 26.018603,121.08637 h 0.39343 q 0.387917,0 0.387917,0.29766 0,0.10955 -0.06339,0.18328 -0.05581,0.0654 -0.153651,0.0951 l 0.25287,0.51883 h -0.204638 l -0.221864,-0.49058 -0.04961,0.001 h -0.155029 v 0.4892 h -0.186035 z m 0.186035,0.14263 v 0.32177 h 0.190858 q 0.214285,0 0.214285,-0.16399 0,-0.15778 -0.206016,-0.15778 z"
-         id="path17420" />
-      <path
-         d="m 27.728058,121.08637 v 0.1509 h -0.532611 v 0.28939 h 0.402387 v 0.15089 h -0.402387 v 0.35278 h 0.543636 v 0.15089 h -0.733805 v -1.09485 z"
-         id="path17422" />
-      <path
-         d="m 28.63274,121.34062 -0.184657,0.0503 q -0.04272,-0.17915 -0.194993,-0.17915 -0.09233,0 -0.141249,0.0434 -0.04134,0.0372 -0.04134,0.0992 0,0.0772 0.04754,0.11713 0.04341,0.0358 0.153651,0.0661 l 0.05788,0.0172 q 0.192237,0.0524 0.263205,0.13712 0.05719,0.0689 0.05719,0.18603 0,0.15917 -0.112999,0.2453 -0.103353,0.0792 -0.282498,0.0792 -0.172943,0 -0.28043,-0.0799 -0.09715,-0.0724 -0.132981,-0.20395 l 0.181901,-0.0579 q 0.02274,0.10128 0.08888,0.15296 0.05719,0.0448 0.138493,0.0448 0.209462,0 0.209462,-0.15641 0,-0.0785 -0.04616,-0.11713 -0.04479,-0.0379 -0.167432,-0.0724 l -0.0565,-0.0165 q -0.18259,-0.0544 -0.250803,-0.13849 -0.05719,-0.0703 -0.05719,-0.19086 0,-0.13849 0.107487,-0.22186 0.09853,-0.0772 0.258382,-0.0772 0.298345,0 0.385162,0.27285 z"
-         id="path17424" />
-      <path
-         d="m 29.572561,121.08637 v 0.1509 h -0.532612 v 0.28939 h 0.402387 v 0.15089 h -0.402387 v 0.35278 h 0.543636 v 0.15089 H 28.84978 v -1.09485 z"
-         id="path17426" />
-      <path
-         d="m 30.517894,121.08637 v 0.15365 h -0.325905 v 0.9412 h -0.192237 v -0.9412 h -0.323149 v -0.15365 z"
-         id="path17428" />
     </g>
     <path
        style="color:#000000;fill:#000000;fill-rule:evenodd;stroke-dasharray:0.265, 0.53;-inkscape-stroke:none"

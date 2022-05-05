@@ -76,7 +76,7 @@ template <typename T> struct FilterCorePrototype{
     	Input_Buffer_1_A = Input;
 
         Output_Buffer_2_A = Output_Buffer_1_A;
-        Output_Buffer_1_A = clamp(Output_A,-10.f,10.f);
+        Output_Buffer_1_A = clamp(Output_A,-5.f,5.f);
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -100,7 +100,7 @@ template <typename T> struct FilterCorePrototype{
     	Input_Buffer_1_B = Output_A;
 
         Output_Buffer_2_B = Output_Buffer_1_B;
-        Output_Buffer_1_B = clamp(Output,-10.f,10.f);
+        Output_Buffer_1_B = clamp(Output,-5.f,5.f);
 	}
 	float_4 GetOutput(float_4 BassAmount){
 		return clamp((Output+BassAmount*OutFraction2_B)*0.5f,-10.f, 10.f);

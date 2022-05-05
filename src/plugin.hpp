@@ -15,6 +15,7 @@ extern Model* modelXtenuat3hr;
 extern Model* modelFM3HR;
 extern Model* modelENVELOOP3HR;
 extern Model* modelFMFILT3HR;
+extern Model* modelGLTCH3HR;
 
 // JACKS
 

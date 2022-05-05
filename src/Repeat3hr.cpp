@@ -245,7 +245,7 @@ struct Repeat3hr : Module {
 
 		AudioInput = (inputs[AUDIO_INPUT].isConnected()) ? inputs[AUDIO_INPUT].getVoltageSum() : 0;
 
-		Time = TimeKnob + (TimeCV*TimeInput) + FineKnob + (FineCV*FineInput);
+		Time = clamp(TimeKnob + (TimeCV*TimeInput) + FineKnob + (FineCV*FineInput),0.001f,4.099f);
 		feedbackAmount = clamp(simd::pow(FeedbackKnob + (FeedbackCV*FeedbackInput),2),0.f,1.2f); //uses squared value to improve "feel" of turning knob
 		inputAmount = InputKnob + (InputCV*InputInput);
 		dryAmount = clamp((DryKnob + (DryCV * DryInput)),0.f,1.f);
