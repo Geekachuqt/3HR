@@ -38,3 +38,11 @@ In loop mode, the envelopes will loop **only while a gate is sustained**. This a
 ![FMFILT3HR](https://github.com/Geekachuqt/3HR/blob/main/docs/FMFILT3HR.png)
 
 FMFILT3HR is a lowpass filter designed for FM manipulation. It features two FM ports with different algorithms (Additive and multiplicative) which can be controlled manually or with CV. The FM modulation affects the Cutoff frequency of the filter. At its core, the filter is basically two 18dB butterworth filters in sequence with different resonance values, resulting in just enough dirt to give the input a unique characteristic at high resonance values without having the filter explode in your face.
+
+### GLTCH3HR
+
+![GLCTH3HR](https://github.com/Geekachuqt/3HR/blob/main/docs/gltch3hr.png)
+
+GLTCH3HR is a threshold-controlled looper with controllable start and end-times, designed for stutter and artifact generation. Upon receiving a control signal that exceeds the threshold parameter, it will begin recording 0.5 seconds of the input signal. After an amount of time that equals to the startpoint plus the length of the sample, it will begin playing back the specified section of the recorded input. Once it's playing, the start and end times are freely modifiable, allowing you to extend or shorten the section being played at will, and even reversing the playback. A controllable volume interpolation algorithm is also included to slightly lessen the clicks introduced by the abrupt changes in waveform induced by the jump at the loop point. The module works with both CV and audio signals.
+
+Note that the module does **not** pass through audio, and will only output the looped section. As such, it should be used as a "send" style effect.
