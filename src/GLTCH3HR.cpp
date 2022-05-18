@@ -2,6 +2,7 @@
 using simd::float_4;
 
 //TODO: Add a silence parameter/function that adds a definable time period of silence between repeats.
+//TODO: Add a visualizer that displays the recorded waveform along with lines denoting the repeated section.
 
 struct GLTCH3HR : Module {
 	enum ParamId {
