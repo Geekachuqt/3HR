@@ -1,6 +1,8 @@
 #include "plugin.hpp"
 using simd::float_4;
 
+//TODO: Add a silence parameter/function that adds a definable time period of silence between repeats.
+
 struct GLTCH3HR : Module {
 	enum ParamId {
 		END_CV_PARAM_PARAM,
