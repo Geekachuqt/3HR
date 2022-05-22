@@ -28,7 +28,8 @@
       "description": "CV-controlled crossfader and attenuverter.",
       "tags": [
         "attenuator",
-        "utility"
+        "utility",
+        "polyphonic"
       ]
     },
     {
